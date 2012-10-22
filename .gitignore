@@ -1,0 +1,13 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.iml
+.idea
+*.ipr
+*.iws
+.gradle
+out
+TODO

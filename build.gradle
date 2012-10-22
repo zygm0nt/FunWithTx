@@ -1,0 +1,56 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+idea.module.iml {
+    beforeMerged { module ->
+        module.dependencies.clear()
+    }
+    whenMerged { module ->
+        module.dependencies*.exported = true
+    }
+}
+
+idea.project.ipr {
+    beforeMerged { project ->
+        project.modulePaths.clear()
+    }
+    withXml { provider ->
+        provider.node.component.find { it.@name == 'VcsDirectoryMappings' }.mapping.@vcs = 'Git'
+    }
+}
+
+sourceCompatibility = 1.6
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile (
+         [group: 'commons-collections', name: 'commons-collections', version: '3.2'],
+         [group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'],
+         [group: 'org.springframework', name: 'spring-tx', version: '3.1.0.RELEASE'],
+         [group: 'org.springframework', name: 'spring-jdbc', version: '3.1.0.RELEASE'],
+         [group: 'org.springframework', name: 'spring-test', version: '3.1.0.RELEASE'],
+         [group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.6.4'],
+         [group: 'com.h2database', name: 'h2', version: '1.2.138']
+    )
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
