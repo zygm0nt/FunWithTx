@@ -37,6 +37,7 @@ dependencies {
          [group: 'org.springframework', name: 'spring-tx', version: '3.1.0.RELEASE'],
          [group: 'org.springframework', name: 'spring-jdbc', version: '3.1.0.RELEASE'],
          [group: 'org.springframework', name: 'spring-test', version: '3.1.0.RELEASE'],
+         [group: 'cglib', name:'cglib', version: '2.2.2'],
          [group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.6.4'],
          [group: 'com.h2database', name: 'h2', version: '1.2.138']
     )

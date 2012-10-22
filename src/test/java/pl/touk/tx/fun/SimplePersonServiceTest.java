@@ -1,5 +1,6 @@
 package pl.touk.tx.fun;
 
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +16,8 @@ import pl.touk.tx.fun.model.Person;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/applicationCtx.xml"})
 public class SimplePersonServiceTest {
+
+    private Logger log = Logger.getLogger(SimplePersonServiceTest.class);
 
     @Autowired
     SimpleDao dao;
@@ -35,8 +38,10 @@ public class SimplePersonServiceTest {
         Assert.assertEquals(1, service.fetch().size());
         try {
             service.persistWithException(new Person("Tom", 11));
-        } catch (RuntimeException e) {}
-        Assert.assertEquals(2, service.fetch().size());
+        } catch (RuntimeException e) {
+            log.warn("Got RuntimeException");
+        }
+        Assert.assertEquals(1, service.fetch().size());
     }
 
 }
