@@ -51,5 +51,12 @@
         <property name="connectionFactory" ref="consumer.connectionFactory" />
         <property name="destinationName" value="sample.messages" />
         <property name="messageListener" ref="consumer.messageListener" />
+        <!--<property name="sessionTransacted" value="true"/>-->
+        <!--<property name="transactionManager" ref="local.transactionManager"/>-->
     </bean>
+
+    <!--<bean id="local.transactionManager" class="org.springframework.jms.connection.JmsTransactionManager">
+        &lt;!&ndash; can also refer to amq.connectionFactory &ndash;&gt;
+        <property name="connectionFactory" ref="consumer.connectionFactory" />
+    </bean>-->
 </beans>

@@ -17,12 +17,9 @@ public class CustomMessageListener implements MessageListener {
     
     MessageHandler messageHandler;
 
-    private int messageCounter = 0;
-
     @Override
     public void onMessage(Message message) {
         try {
-            messageCounter++;
             log.info("Got: " + ((TextMessage)message).getText());
             if (messageHandler != null) {
                 log.info("Processing message: " + ((TextMessage)message).getText());
@@ -37,13 +34,5 @@ public class CustomMessageListener implements MessageListener {
 
     public void setMessageHandler(MessageHandler messageHandler) {
         this.messageHandler = messageHandler;
-    }
-
-    public int getMessageCounter() {
-        return messageCounter;
-    }
-
-    public void reset() {
-        messageCounter = 0;
     }
 }
