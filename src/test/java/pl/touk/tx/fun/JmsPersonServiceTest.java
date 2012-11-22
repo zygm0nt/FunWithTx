@@ -86,7 +86,7 @@ public class JmsPersonServiceTest {
             }
         });
         messageProducer.generateMessages();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         Assert.assertEquals(0, service.fetch().size());
         Assert.assertEquals(10, getStats("sample.messages").getDequeues().getCount());
         Assert.assertEquals(0, getStats("sample.messages").getMessages().getCount());
