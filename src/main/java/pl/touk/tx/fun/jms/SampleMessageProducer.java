@@ -27,6 +27,10 @@ public class SampleMessageProducer {
      * Generates JMS messages
      */
     public void generateMessages() throws JMSException {
+        generateMessages(10);
+    }
+
+    public void generateMessages(int messageCount) {
         for (int i = 0; i < messageCount; i++) {
             final int index = i;
             final String text = "Message number is " + i + ".";
@@ -42,6 +46,6 @@ public class SampleMessageProducer {
                 }
             });
         }
-    }
 
+    }
 }
