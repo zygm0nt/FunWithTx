@@ -27,11 +27,28 @@
     <context:property-placeholder location="classpath:funTx.properties"/>
 
     <!-- setup an embedded JMS Broker for testing purposes -->
-    <amq:broker id="my-broker" useJmx="false" persistent="false" brokerName="localhost">
-        <amq:transportConnectors>
-            <amq:transportConnector uri="tcp://localhost:61616" />
-        </amq:transportConnectors>
-    </amq:broker>
+    <broker xmlns="http://activemq.apache.org/schema/core" 
+            id="my-broker" useJmx="true" persistent="false" brokerName="localhost">
+<!--
+        <plugins>
+            <redeliveryPlugin fallbackToDeadLetter="true" sendToDlqIfMaxRetriesExceeded="true">
+                <redeliveryPolicyMap>
+                    <redeliveryPolicyMap>
+                        <setRedeliveryPolicyEntries>
+                            <redeliveryPolicy queue="sample.messages" maximumRedeliveries="3"/>
+                        </setRedeliveryPolicyEntries>
+                        <defaultEntry>
+                            <redeliveryPolicy maximumRedeliveries="0" initialRedeliveryDelay="5000"/>
+                        </defaultEntry>
+                    </redeliveryPolicyMap>
+                </redeliveryPolicyMap>
+            </redeliveryPlugin>
+        </plugins>
+-->
+        <transportConnectors>
+            <transportConnector uri="tcp://localhost:61616" />
+        </transportConnectors>
+    </broker>
 
     <bean id="amq.connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
         <property name="brokerURL" value="tcp://localhost:61616?jms.redeliveryPolicy.maximumRedeliveries=1" />
@@ -51,7 +68,9 @@
         <property name="connectionFactory" ref="consumer.connectionFactory" />
         <property name="destinationName" value="sample.messages" />
         <property name="messageListener" ref="consumer.messageListener" />
+        <!--
         <property name="transactionManager" ref="local.transactionManager"/>
+        -->
         <property name="sessionTransacted" value="true"/>
     </bean>
 
